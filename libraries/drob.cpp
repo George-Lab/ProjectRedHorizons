@@ -31,7 +31,7 @@ void Drob::getVol(SystemFile& file) {
   chisl = data[1];
   znam = data[2];
 
-  delete(test_data);
+  delete [] test_data;
 }
 
 void Drob::print() {

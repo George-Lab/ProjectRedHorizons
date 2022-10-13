@@ -23,6 +23,8 @@ int main(int argc, char** argv) {
   a1.getVol(file);
   a2.getVol(file);
 
+  file.closef();
+
   a1.print(); 
   a2.print(); 
   res.print(); 
@@ -53,8 +55,6 @@ int main(int argc, char** argv) {
 
   res = !a1; 
   res.print(); 
-
-  file.closef();
 
   return 0;
 }
