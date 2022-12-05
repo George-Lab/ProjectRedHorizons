@@ -3,13 +3,12 @@
 
 // all of the programs will share these values
 #define BLOCK_SIZE 4096
-#define FILENAME "lift.cpp"
-#define FILENAME_LOGGER "logger.cpp"
+#define FILENAME "../../source/lift.cpp"
+#define FILENAME_LOGGER "../../source/logger.cpp"
+#define LOG_PATH "../../test/log.txt"
 #define SHMEM_RESULT_ERROR (-1)
 
 #define SEM_SHMEM_BLOCK "/shmemblock"
-#define SEM_PRODUCER_FILENAME "/producer"
-#define SEM_CONSUMER_FILENAME "/consumer"
 
 #define MAXBUF 100
 #define MESQUEUE_RESULT_ERROR (-1)

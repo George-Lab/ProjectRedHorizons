@@ -1,6 +1,3 @@
-#ifndef SHARED_MEMORY_H
-#define SHARED_MEMORY_H
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +6,7 @@
 #include <sys/shm.h>
 #include <sys/types.h>
 
-#include "shared_values.hpp"
+#include "shared_values.h"
 
 static int get_shared_block(const char* filename, int size) {
   key_t key;
@@ -54,5 +51,3 @@ bool destroy_memory_block(const char* filename) {
   }
   return (shmctl(shared_block_id, IPC_RMID, NULL) != SHMEM_RESULT_ERROR);
 }
-
-#endif

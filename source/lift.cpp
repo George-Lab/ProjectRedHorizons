@@ -1,11 +1,12 @@
 #include <fcntl.h>
 #include <semaphore.h>
 #include <unistd.h>
+#include <string.h>
 
 #include <iostream>
 
-#include "include/message_queue.hpp"
-#include "include/shared_memory.hpp"
+#include "include/message_queue.h"
+#include "include/shared_memory.h"
 
 int main() {
   // Создание семафора
@@ -30,15 +31,23 @@ int main() {
   }
 
   // Создание очереди сообщений
-  mq_unlink(FILENAME);
   int mesid = create_message_queue(FILENAME);
   if (mesid < 0) {
     printf("Can't create message's queue\n");
     exit(1);
   }
 
-  // Структура для обмена сообщениями
-  Message mes;
+  // Создание очереди сообщений для logger'а
+  int mesid_log = create_message_queue(FILENAME_LOGGER);
+  if (mesid_log < 0) {
+    printf("Can't create message's queue\n");
+    exit(1);
+  }
+
+  // Структуры для обмена сообщениями
+  Message mes; // Для общения с citizen
+  Message mes_log; // Для общения с logger
+  mes_log.type = 1;
 
   int cur_floor = 1;
   int working_direction = MODE_NEUTRAL;

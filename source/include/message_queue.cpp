@@ -1,24 +1,14 @@
-#ifndef MESSAGE_QUEUE
-#define MESSAGE_QUEUE
+#include "message_queue.h"
 
+#include <errno.h>
+#include <mqueue.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <sys/types.h>
-#include <mqueue.h>
 
-#include "shared_values.hpp"
-
-// Структура для передачи сообщений
-typedef struct MessageBuf {
-  // тип сообщения для чтения или записи
-  long type;
-
-  // для содержания сообщения
-  char buf[MAXBUF];
-
-} Message;
+#include "shared_values.h"
 
 int create_message_queue(const char* filename) {
   key_t key;
@@ -28,7 +18,16 @@ int create_message_queue(const char* filename) {
   }
 
   // создание очереди сообщений
-  return msgget(key, 0666 | IPC_CREAT);
+  int mesid = msgget(key, 0666 | IPC_CREAT);
+  Message extractor;
+  extractor.type = 0;
+  while (true) {
+    if (read_message_nowait(mesid, &extractor) == -1) {
+      break;
+    }
+  }
+
+  return mesid;
 }
 
 int get_message_queue_id(const char* filename) {
@@ -84,5 +83,3 @@ void delete_message_queue(int mesid) {
     exit(1);
   }
 }
-
-#endif

@@ -1,0 +1,4 @@
+build/bin/*
+build/obj/*
+test/log.txt
+.vscode/*

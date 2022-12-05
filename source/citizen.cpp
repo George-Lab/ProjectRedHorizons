@@ -5,9 +5,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <string>
+#include <sstream>
 
-#include "include/message_queue.hpp"
-#include "include/shared_memory.hpp"
+#include "include/message_queue.h"
+#include "include/shared_memory.h"
 
 int main() {
   // Получение доступа к семафору
@@ -26,9 +28,21 @@ int main() {
 
   // Получение доступа к очереди сообщений
   int mesid = get_message_queue_id(FILENAME);
+  // Получение очереди сообщений для logger'а
+  int mesid_log = get_message_queue_id(FILENAME_LOGGER);
+  if (mesid_log < 0) {
+    printf("Can't recieve message's queue\n");
+    exit(1);
+  }
 
-  // Структура для обмена сообщениями
+  // Структуры для обмена сообщениями
   Message mes;
+  Message mes_log;
+  mes_log.type = 1;
+  
+  // Для записи сообщений
+  std::string str_mes;
+  std::stringstream sstr;
 
   // Выбор этажа, где появился очередной житель
   // и этажа, куда этот житель направляется
@@ -40,7 +54,11 @@ int main() {
   } while (dest_floor == spawn_floor);
 
   // Житель нажимает на кнопку
-  std::cout << getpid() << ": I want to get from floor " << spawn_floor << " to floor " << dest_floor << std::endl;
+  sstr << getpid() << ": I want to get from floor " << spawn_floor << " to floor " << dest_floor << std::endl;
+  str_mes = sstr.str();
+  std::cout << str_mes;
+  send_message(mesid_log, &mes_log, str_mes.c_str());
+
   std::cout << getpid() << ": Pressing button on the " << spawn_floor
             << " floor\n";
   mes.type = 1;
