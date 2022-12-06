@@ -7,6 +7,7 @@
 
 #include "include/message_queue.h"
 #include "include/shared_memory.h"
+#include "include/process_time.h"
 
 int main() {
   // Создание семафора
@@ -49,6 +50,11 @@ int main() {
   Message mes_log; // Для общения с logger
   mes_log.type = 1;
 
+  // Для записи сообщений в log
+  std::string str_mes;
+  std::stringstream sstr;
+
+  // Начальные значения
   int cur_floor = 1;
   int working_direction = MODE_NEUTRAL;
 
@@ -81,11 +87,14 @@ int main() {
     if (data[2 * MAX_FLOOR + 1 + cur_floor] > 0) {
       sem_post(sem_shmem);
       // Сообщаем пассажирам, что лифт прибыл
-      std::cout << "Lift is opening the doors on the " << cur_floor << " floor\n";
+      sstr << CurTime() << "Lift: opening the doors on the " << cur_floor << " floor\n";
+      send_log(std::cout, sstr, str_mes, &mes_log, mesid_log);
+
       doors_opened = true;
       mes.type = 4 + cur_floor;
       send_message(mesid, &mes, "DESTINATION REACHED");
 
+      // Ждем, пока все желающие пассажиры выйдут
       mes.type = 4;
       read_message_wait(mesid, &mes);
       sem_wait(sem_shmem);
@@ -97,7 +106,9 @@ int main() {
       mes.type = 2 + (1 + working_direction) / 2;
       send_message(mesid, &mes, "I AM HERE!");
       if (!doors_opened) { 
-        std::cout << "Lift is opening the doors on the " << cur_floor << " floor\n";
+        sstr << CurTime() << "Lift: opening the doors on the " << cur_floor << " floor\n";
+        send_log(std::cout, sstr, str_mes, &mes_log, mesid_log);
+
         doors_opened = true;
       }
 
@@ -106,6 +117,7 @@ int main() {
       while (true) {
         mes.type = 4;
         read_message_wait(mesid, &mes);
+        // Ждем последнего пассажира
         if (strcmp(mes.buf, "I AM THE LAST PASSENGER") == 0) {
           break;
         }
@@ -113,10 +125,14 @@ int main() {
       sem_wait(sem_shmem);
     }
     if (doors_opened) {
-      std::cout << "Lift is closing the doors on the " << cur_floor << " floor\n";
+      sstr << CurTime() << "Lift: closing the doors on the " << cur_floor << " floor\n";
+      send_log(std::cout, sstr, str_mes, &mes_log, mesid_log);
     }
 
     // Проверяем, нужно ли ехать дальше в текущем направлении
+    // Если сохраняется текущее направление, например вверх, то проверяем достигнут ли
+    // миниальный этаж при движении вверх, если достигнут, то смещаем минимальный
+    // этаж на 1 вверх. Аналогично при движении вниз
     if (data[(1 + working_direction) / 2] == cur_floor ||
         data[(1 + working_direction) / 2] == 0) {
       data[(1 + working_direction) / 2] = 0;
@@ -143,7 +159,8 @@ int main() {
     // Едем на следующий этаж
     sleep(SWITCH_FLOOR_TIME);
     cur_floor += working_direction;
-    std::cout << "going to the next floor: " << cur_floor << std::endl;
+    sstr << CurTime() << "Lift: going to the next floor: " << cur_floor << std::endl;
+    send_log(std::cout, sstr, str_mes, &mes_log, mesid_log);
   }
 
   sem_close(sem_shmem);

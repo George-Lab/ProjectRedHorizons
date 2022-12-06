@@ -1,6 +1,10 @@
 #ifndef MESSAGE_QUEUE
 #define MESSAGE_QUEUE
 
+#include <iostream>
+#include <sstream>
+#include <string>
+
 #include "shared_values.h"
 
 // Структура для передачи сообщений
@@ -25,6 +29,10 @@ int read_message_wait(int mesid, Message* mes);
 int read_message_nowait(int mesid, Message* mes);
 
 void send_message(int mesid, Message* mes, const char* text);
+
+// Отправка сообщения в log файл и вывод в окно терминала
+void send_log(std::ostream& os, std::stringstream& sstr, std::string& mes_str,
+              Message* mes_log, int mesid_log);
 
 void delete_message_queue(int mesid);
 

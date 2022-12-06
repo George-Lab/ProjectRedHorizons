@@ -10,13 +10,16 @@ BINS=$(BIN)/lift.out $(BIN)/citizen.out $(BIN)/citizens_generator.out $(BIN)/log
 
 all:$(BINS)
 
-$(BIN)/%.out: $(OBJ)/%.o $(OBJ)/message_queue.o $(OBJ)/shared_memory.o
+$(BIN)/%.out: $(OBJ)/%.o $(OBJ)/message_queue.o $(OBJ)/shared_memory.o $(OBJ)/process_time.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(OBJ)/message_queue.o: $(SRC)/include/message_queue.cpp
 	$(CXX) $(CXXFLAGS) -c $^ -o $@
 
 $(OBJ)/shared_memory.o: $(SRC)/include/shared_memory.cpp
+	$(CXX) $(CXXFLAGS) -c $^ -o $@
+
+$(OBJ)/process_time.o: $(SRC)/include/process_time.cpp
 	$(CXX) $(CXXFLAGS) -c $^ -o $@
 
 $(OBJ)/%.o: $(SRC)/%.cpp

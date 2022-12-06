@@ -10,27 +10,30 @@
 
 static int get_shared_block(const char* filename, int size) {
   key_t key;
-  // Request a key
-  // The keyis, linked to a filename, so that other programs can access it.
+  // Создание ключа
+  // Ключ связан с файлом для того, чтобы другие процессы
+  // могли получить доступ
   key = ftok(filename, 0);
   if (key == SHMEM_RESULT_ERROR) {
     return SHMEM_RESULT_ERROR;
   }
-  // get shared block --- create it if it doesn't exist
+  // Получение блока разделяемой памяти
+  // Если блока не существует, тогда он создается
   return shmget(key, size, 0644 | IPC_CREAT);
 }
 
-// attach a shared memory block
-// associated with filename
-// create it if it doesn't exist
+// Подключить блок разделяемой памяти,
+// связанный с файлом
+// Создать блок, если он не существует
 int* attach_memory_block(const char* filename, int size) {
   int shared_block_id = get_shared_block(filename, size);
   int* result;
   if (shared_block_id == SHMEM_RESULT_ERROR) {
     return NULL;
   }
-  // map the shared block into this process's memory I
-  // and give me a pointer to it
+
+  // Подключить блок памяти к адрессному пространству
+  // процесса. Вернуть указатель на блок
   result = (int*)shmat(shared_block_id, NULL, 0);
   if (result == (int*)SHMEM_RESULT_ERROR) {
     return NULL;

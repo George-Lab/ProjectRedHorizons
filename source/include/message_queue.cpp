@@ -77,6 +77,15 @@ void send_message(int mesid, Message* mes, const char* text) {
   }
 }
 
+// Отправка сообщения в log файл и вывод в окно терминала
+void send_log(std::ostream& os, std::stringstream& sstr, std::string& str_mes,
+              Message* mes_log, int mesid_log) {
+  str_mes = sstr.str();
+  os << str_mes;
+  send_message(mesid_log, mes_log, str_mes.c_str());
+  sstr.str("");
+}
+
 void delete_message_queue(int mesid) {
   if (msgctl(mesid, IPC_RMID, 0) < 0) {
     printf("Can't delete queue\n");
