@@ -1,0 +1,111 @@
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Button pressed
+Passenger is entering the lift
+Button pressed
+Passenger is entering the lift
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Button pressed
+Button pressed
+Passenger is entering the lift
+Passenger is entering the lift
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Button pressed
+Passenger is entering the lift
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Button pressed
+Button pressed
+Passenger is entering the lift
+Passenger is entering the lift
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Button pressed
+Passenger is entering the lift
+Passenger is entering the lift
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Button pressed
+Passenger is entering the lift
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Passenger is leaving the lift
+Lift is going to the first floor
+Button pressed
+Passenger is entering the lift
+Lift is going to the 2nd floor
+Passenger is leaving the lift
+Lift is going to the first floor
